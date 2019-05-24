@@ -1,0 +1,12 @@
+{
+  "name": "px",
+  "version": "1.0.0",
+  "description": "A tiny javascript puzzle game framework",
+  "main": "px.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stillwwater/px"
+  },
+  "author": "Stillwwater",
+  "license": "MIT"
+}
