@@ -2,7 +2,7 @@
 
 Px is a tiny 2D canvas framework for turn-based puzzle games.
 
-![scrot](./scrot.png)
+![scrot](./example/scrot.png)
 
 ## Features
 - Collision checking
