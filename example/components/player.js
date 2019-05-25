@@ -1,17 +1,41 @@
 px.create('player', function (x, y) {
   this.x = x;
   this.y = y;
-  this.color = 'cyan';
   this.dir = new Vector2(0, 0);
+  this.color = 'cyan';
+  this.palette = ['black', '#f0ccc2', '#80c6df'];
+  this.spriteSize = 8; // Default sprite size is 8x8
+
+  this.spriteR = '........'
+               + '..0000..'
+               + '..1212..'
+               + '..1111..'
+               + '.000000.'
+               + '.100001.'
+               + '..0000..'
+               + '..0..0..';
+
+  this.spriteL = '........'
+               + '..0000..'
+               + '..2121..'
+               + '..1111..'
+               + '.000000.'
+               + '.100001.'
+               + '..0000..'
+               + '..0..0..';
+
+  this.sprite = this.spriteR;
 
   this.keypress = function (e) {
     switch (e.key) {
       case 'ArrowLeft':
         this.dir = new Vector2(-1, 0);
+        this.sprite = this.spriteL;
         px.move(this, this.x - 1, this.y);
         break;
       case 'ArrowRight':
         this.dir = new Vector2(1, 0);
+        this.sprite = this.spriteR;
         px.move(this, this.x + 1, this.y);
         break;
       case 'ArrowUp':
@@ -35,4 +59,11 @@ px.create('player', function (x, y) {
     }
     return false;
   };
+
+  this.draw = function () {
+    this.palette[0] = this.color;
+    // We need to call drawSprite our selves since
+    // we are replacing the draw function.
+    px.drawSprite(this);
+  }
 });

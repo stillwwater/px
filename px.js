@@ -138,6 +138,10 @@ var px = {
           entity.draw(ctx);
           continue;
         }
+        if (entity.sprite) {
+          this.drawSprite(entity);
+          continue;
+        }
 
         let w = entity.width * this.scale,
             h = entity.height * this.scale;
@@ -151,6 +155,39 @@ var px = {
       }
     }
     return this;
+  },
+
+  /**
+   * Draw entity.sprite using entity.palette
+   * to look up colors.
+   * '.' or ' ' (space character) means transparent.
+   */
+  drawSprite: function (entity) {
+    if (!entity.palette) {
+      entity.palette = [entity.color];
+    }
+    if (!entity.spriteSize) {
+      entity.spriteSize = 8;
+    }
+
+    for (let x = 0; x < entity.spriteSize; x++) {
+      for (let y = 0; y < entity.spriteSize; y++) {
+        let pixel = entity.sprite[x + y * entity.spriteSize];
+        if (pixel === '.' || pixel === ' ') {
+          continue;
+        }
+        let pixelScale = 1 / entity.spriteSize;
+        this.ctx.fillStyle = entity.palette[Number(pixel)];
+
+        this.ctx.fillRect(
+          (entity.x + x * pixelScale) * this.scale,
+          (entity.y + y * pixelScale) * this.scale,
+          pixelScale * this.scale,
+          pixelScale * this.scale
+        );
+      }
+    }
+    return entity;
   },
 
   /**
